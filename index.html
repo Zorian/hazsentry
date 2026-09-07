@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazsentry | Fire & Life Safety BMS Integration</title>
+<meta name="description" content="Fire alarm and life safety integration with the BMS — smoke control, interlocks, cause-and-effect testing and BS 5839 compliance. Integrates with Trend, Tridium, Honeywell, EcoStruxure and Metasys. 24/7 emergency, same-day callout.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Who integrates fire alarm systems with the BMS?","acceptedAnswer":{"@type":"Answer","text":"Hazsentry integrates fire alarm and life safety systems with the building management system, including smoke control, interlocks and cause-and-effect logic, for commercial and industrial buildings across the UK. 24/7 emergency, same-day callout available."}},
+    {"@type":"Question","name":"Why isn't a fire alarm signal triggering the BMS response it should?","acceptedAnswer":{"@type":"Answer","text":"Usually a broken interlock between the fire panel and the BMS controller, an outdated cause-and-effect matrix, or a points mapping issue after a panel or firmware change. We trace the signal path and restore the correct response."}},
+    {"@type":"Question","name":"What is cause-and-effect testing and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Cause-and-effect testing confirms that a specific fire alarm trigger produces the correct building response — smoke control activation, HVAC shutdown, door release — exactly as designed. It's required after any change to fire or BMS systems and for ongoing compliance."}},
+    {"@type":"Question","name":"Can smoke control and HVAC shutdown be linked through the BMS?","acceptedAnswer":{"@type":"Answer","text":"Yes. We configure the BMS so a fire alarm signal automatically shuts down or reconfigures HVAC, activates smoke extract, and releases door holds, coordinated through a single cause-and-effect strategy."}},
+    {"@type":"Question","name":"How much does fire and life safety BMS integration cost?","acceptedAnswer":{"@type":"Answer","text":"Cost depends on the number of interlocks, the fire strategy complexity, and the existing BMS platform. We provide a fixed quote after a site survey and review of the fire strategy."}},
+    {"@type":"Question","name":"Do you work with Trend, Tridium, Honeywell, Schneider or Johnson Controls?","acceptedAnswer":{"@type":"Answer","text":"Yes. We integrate fire and life safety interlocks with Trend, Tridium/Niagara, Honeywell, Schneider EcoStruxure and Johnson Controls Metasys, regardless of who installed the original fire system."}},
+    {"@type":"Question","name":"Is fire and BMS interlock testing required under BS 5839?","acceptedAnswer":{"@type":"Answer","text":"BS 5839 governs the fire detection and alarm system itself; where that system interlocks with the BMS (smoke control, HVAC shutdown, door release), those interlocks need their own periodic cause-and-effect verification as part of the building's fire strategy."}},
+    {"@type":"Question","name":"Can you fix a fire interlock after a BMS or fire panel upgrade?","acceptedAnswer":{"@type":"Answer","text":"Yes. Panel and head-end upgrades frequently break existing interlocks and points mapping. We re-map, re-test and re-certify the full cause-and-effect chain after any upgrade."}}
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#101314;
+    --bg-raised:#171B1C;
+    --ink:#EDEEEC;
+    --dim:#9AA0A0;
+    --alarm:#E14A34;
+    --hazard:#F0B429;
+    --line:rgba(237,238,236,0.14);
+    --line-soft:rgba(237,238,236,0.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Archivo', 'Inter', sans-serif;
+    font-weight:800;
+    line-height:1.1;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .label-mono{font-family:'JetBrains Mono','Courier New',monospace;font-size:0.82rem;letter-spacing:0.02em;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+  .hazard-bar{height:6px;background:repeating-linear-gradient(135deg,var(--hazard) 0 14px,var(--bg) 14px 28px);}
+  header{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:10;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0;max-width:960px;margin:0 auto;padding-left:24px;padding-right:24px;}
+  .brand{font-family:'Archivo',sans-serif;font-weight:800;font-size:1.3rem;}
+  .brand .dot{color:var(--alarm);}
+  .nav-links{display:flex;gap:28px;align-items:center;font-size:0.95rem;}
+  .nav-links a{text-decoration:none;color:var(--dim);}
+  .call-pill{background:var(--alarm);color:#0B0D0E;padding:9px 18px;border-radius:2px;font-size:0.9rem;text-decoration:none;white-space:nowrap;font-weight:700;}
+  .hero{padding:80px 0 60px;border-bottom:1px solid var(--line);}
+  .eyebrow{color:var(--hazard);margin-bottom:18px;}
+  h1{font-size:2.7rem;max-width:16ch;}
+  .hero p.lead{max-width:52ch;font-size:1.15rem;margin-top:22px;color:var(--dim);}
+  .hero-actions{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+  .btn-primary{background:var(--alarm);color:#0B0D0E;padding:14px 26px;text-decoration:none;border-radius:2px;font-size:0.98rem;font-weight:700;}
+  .btn-secondary{border:1px solid var(--line);color:var(--ink);padding:13px 25px;text-decoration:none;border-radius:2px;font-size:0.98rem;}
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;color:var(--dim);}
+  section{padding:68px 0;border-bottom:1px solid var(--line);}
+  .section-label{color:var(--hazard);margin-bottom:14px;}
+  h2{font-size:1.85rem;max-width:24ch;margin-bottom:36px;}
+  .symptom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .symptom{background:var(--bg-raised);padding:28px;}
+  .symptom h3{font-size:1.02rem;margin-bottom:10px;font-weight:700;}
+  .symptom p{margin:0;color:var(--dim);font-size:0.96rem;}
+  .services{display:flex;flex-direction:column;}
+  .service-row{display:grid;grid-template-columns:1.2fr 2fr;gap:32px;padding:26px 0;border-top:1px solid var(--line-soft);}
+  .service-row:first-child{border-top:none;}
+  .service-row h3{font-size:1.1rem;color:var(--ink);}
+  .service-row p{margin:0;color:var(--dim);}
+  .faq-item{border-top:1px solid var(--line-soft);padding:24px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-item h3{font-size:1.02rem;margin-bottom:10px;font-family:'Inter',sans-serif;font-weight:700;}
+  .faq-item p{margin:0;color:var(--dim);}
+  footer{padding:40px 0;color:var(--dim);}
+  @media(max-width:640px){
+    h1{font-size:2rem;}
+    .symptom-grid{grid-template-columns:1fr;}
+    .service-row{grid-template-columns:1fr;gap:8px;}
+    .nav-links{gap:16px;font-size:0.85rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hazard-bar"></div>
+<header>
+  <div class="nav">
+    <div class="brand">HAZSENTRY<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#faq">FAQ</a>
+      <a class="call-pill" href="tel:+442038000000">Call — 020 3800 0000</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow label-mono">FIRE &amp; LIFE SAFETY BMS INTEGRATION</div>
+    <h1>When the alarm sounds, the building should already know what to do.</h1>
+    <p class="lead">Fire and life safety interlocks, smoke control and cause-and-effect logic — designed, integrated and tested against the BMS you already run, on any head-end.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="tel:+442038000000">Call now — 020 3800 0000</a>
+      <a class="btn-secondary" href="#services">See our services</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap label-mono">24/7 EMERGENCY · SAME-DAY CALLOUT · TREND / TRIDIUM / HONEYWELL / ECOSTRUXURE / METASYS</div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="section-label label-mono">INTERLOCK NOT DOING WHAT IT SHOULD?</div>
+    <h2>Fire signal not reaching the BMS. Smoke control not activating.</h2>
+    <div class="symptom-grid">
+      <div class="symptom">
+        <h3>Fire Alarm Not Triggering BMS Response</h3>
+        <p>Broken interlock between the fire panel and BMS controller, or a points mapping issue after a panel change.</p>
+      </div>
+      <div class="symptom">
+        <h3>Smoke Control Not Activating</h3>
+        <p>Cause-and-effect logic out of date, or an HVAC shutdown sequence that was never re-tested after a plant change.</p>
+      </div>
+      <div class="symptom">
+        <h3>Door Release Failing on Alarm</h3>
+        <p>Access control interlock miswired or dropped from the cause-and-effect matrix during a later system upgrade.</p>
+      </div>
+      <div class="symptom">
+        <h3>Failed Cause-and-Effect Test</h3>
+        <p>One or more zones not producing the correct building response — traced, corrected and re-certified.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-label label-mono">WHAT WE INSTALL &amp; MAINTAIN</div>
+    <h2>Fire strategy, wired correctly into the BMS.</h2>
+    <div class="services">
+      <div class="service-row">
+        <h3>Fire & BMS Interlock Integration</h3>
+        <p>Wire and configure the interlock between fire alarm panels and the BMS head-end for a coordinated building response.</p>
+      </div>
+      <div class="service-row">
+        <h3>Cause-and-Effect Configuration & Testing</h3>
+        <p>Build and verify the cause-and-effect matrix so every fire trigger produces the exact response the fire strategy requires.</p>
+      </div>
+      <div class="service-row">
+        <h3>Smoke Control & HVAC Shutdown</h3>
+        <p>Configure automatic HVAC shutdown, smoke extract activation and pressurisation on fire alarm signal.</p>
+      </div>
+      <div class="service-row">
+        <h3>Door Release & Access Interlocks</h3>
+        <p>Ensure door holds, maglocks and access control release correctly and immediately on alarm activation.</p>
+      </div>
+      <div class="service-row">
+        <h3>Post-Upgrade Re-Certification</h3>
+        <p>Re-map and re-test interlocks after any fire panel or BMS head-end upgrade, with full documentation.</p>
+      </div>
+      <div class="service-row">
+        <h3>Emergency Callout</h3>
+        <p>24/7 response for interlock or life safety faults, with same-day attendance for commercial sites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-label label-mono">COMMON QUESTIONS</div>
+    <h2>Fire & life safety BMS integration, explained.</h2>
+
+    <div class="faq-item">
+      <h3>Who integrates fire alarm systems with the BMS?</h3>
+      <p>Hazsentry integrates fire alarm and life safety systems with the building management system, including smoke control, interlocks and cause-and-effect logic, for commercial and industrial buildings across the UK. 24/7 emergency, same-day callout available.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why isn't a fire alarm signal triggering the BMS response it should?</h3>
+      <p>Usually a broken interlock between the fire panel and the BMS controller, an outdated cause-and-effect matrix, or a points mapping issue after a panel or firmware change. We trace the signal path and restore the correct response.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What is cause-and-effect testing and why does it matter?</h3>
+      <p>Cause-and-effect testing confirms that a specific fire alarm trigger produces the correct building response — smoke control activation, HVAC shutdown, door release — exactly as designed. It's required after any change to fire or BMS systems and for ongoing compliance.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can smoke control and HVAC shutdown be linked through the BMS?</h3>
+      <p>Yes. We configure the BMS so a fire alarm signal automatically shuts down or reconfigures HVAC, activates smoke extract, and releases door holds, coordinated through a single cause-and-effect strategy.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How much does fire and life safety BMS integration cost?</h3>
+      <p>Cost depends on the number of interlocks, the fire strategy complexity, and the existing BMS platform. We provide a fixed quote after a site survey and review of the fire strategy.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do you work with Trend, Tridium, Honeywell, Schneider or Johnson Controls?</h3>
+      <p>Yes. We integrate fire and life safety interlocks with Trend, Tridium/Niagara, Honeywell, Schneider EcoStruxure and Johnson Controls Metasys, regardless of who installed the original fire system.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is fire and BMS interlock testing required under BS 5839?</h3>
+      <p>BS 5839 governs the fire detection and alarm system itself; where that system interlocks with the BMS (smoke control, HVAC shutdown, door release), those interlocks need their own periodic cause-and-effect verification as part of the building's fire strategy.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can you fix a fire interlock after a BMS or fire panel upgrade?</h3>
+      <p>Yes. Panel and head-end upgrades frequently break existing interlocks and points mapping. We re-map, re-test and re-certify the full cause-and-effect chain after any upgrade.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap label-mono">
+    © 2026 HAZSENTRY<br>
+    hello@hazsentry.co.uk · 020 3800 0000 · 24/7 EMERGENCY CALLOUT
+  </div>
+</footer>
+
+</body>
+</html>
