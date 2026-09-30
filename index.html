@@ -150,7 +150,7 @@
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#faq">FAQ</a>
-      <a class="call-pill" href="tel:+442038000000">Call — 020 3800 0000</a>
+      <a class="call-pill" href="tel:+442080640148">Call — 020 8064 0148</a>
     </div>
   </div>
 </header>
@@ -161,7 +161,7 @@
     <h1>When the alarm sounds, the building should already know what to do.</h1>
     <p class="lead">Fire and life safety interlocks, smoke control and cause-and-effect logic — designed, integrated and tested against the BMS you already run, on any head-end.</p>
     <div class="hero-actions">
-      <a class="btn-primary" href="tel:+442038000000">Call now — 020 3800 0000</a>
+      <a class="btn-primary" href="tel:+442080640148">Call now — 020 8064 0148</a>
       <a class="btn-secondary" href="#callout">Request a callout</a>
     </div>
   </div>
@@ -282,7 +282,7 @@
           <li><div><strong>You get a fixed quote</strong>Agreed with you before any work starts.</div></li>
         </ol>
         <p class="co-promise">Emergency requests get a call back straight away, 24/7. Everything else, the same working day.</p>
-        <a class="co-call" href="tel:+442038000000">Prefer to talk? Call 020 3800 0000</a>
+        <a class="co-call" href="tel:+442080640148">Prefer to talk? Call 020 8064 0148</a>
       </div>
       <div id="co-wrap">
         <form name="hazsentry-callout" method="POST" data-netlify="true" netlify-honeypot="company-website" enctype="multipart/form-data" action="https://hazsentry.netlify.app/" id="co-form">
@@ -334,7 +334,7 @@
 <footer>
   <div class="wrap label-mono">
     © 2026 HAZSENTRY<br>
-    020 3800 0000 · 24/7 EMERGENCY CALLOUT
+    020 8064 0148 · 24/7 EMERGENCY CALLOUT
   </div>
 </footer>
 
@@ -343,14 +343,14 @@
 (function(){
   var f=document.getElementById('co-form');if(!f)return;
   var wrap=document.getElementById('co-wrap');
-  function done(){wrap.innerHTML='<div class="co-done" role="status" tabindex="-1"><h3>Request received</h3><p>An engineer will call you back shortly. For anything urgent in the meantime, call 020 3800 0000.</p></div>';wrap.firstChild.focus();}
+  function done(){wrap.innerHTML='<div class="co-done" role="status" tabindex="-1"><h3>Request received</h3><p>An engineer will call you back shortly. For anything urgent in the meantime, call 020 8064 0148.</p></div>';wrap.firstChild.focus();}
   if(location.search.indexOf('sent=1')>-1){done();return;}
   f.addEventListener('submit',function(e){
     e.preventDefault();var b=f.querySelector('.co-submit');b.disabled=true;b.textContent='Sending...';
     var old=f.querySelector('.co-err');if(old)old.remove();
     fetch('https://hazsentry.netlify.app/',{method:'POST',mode:'no-cors',body:new FormData(f)}).then(function(){done();}).catch(function(){
       b.disabled=false;b.textContent='Request a callout';
-      var p=document.createElement('p');p.className='co-err';p.textContent='That didn\'t send. Check your connection and try again, or call 020 3800 0000.';f.appendChild(p);
+      var p=document.createElement('p');p.className='co-err';p.textContent='That didn\'t send. Check your connection and try again, or call 020 8064 0148.';f.appendChild(p);
     });
   });
 })();
